@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extra_js %}
+    <script src={% static 'js/validator.min.js' %}></script>
+{% endblock %}
+
+{% block title %}
+    Login User |
+{% endblock %}
+
+{% block login_content %}
+    <form class='myform' data-toggle="validator" role="form" method='post'>
+        {% csrf_token %}
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-md-offset-4 login_form">
+                        <img class="login_image" src={% static "img/logo.png" %}>
+                        {% if messages %}
+                            <div id="messages">
+                                <p class="messages">
+                                    {% for message in messages %}
+                                        <strong {% if message.tags %} class="{{ message.tags }}-message"{% endif %}>
+                                            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                                            {{ message }}
+                                        </strong>
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        {% endif %}
+                        <div class="account-wall">
+                            <div class="form-signin">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="glyphicon glyphicon-user"></i>
+                                        </span>
+                                        {{ form.email }}
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                    {% if form.email.errors %}
+                                        <div class="alert alert-danger server_errors" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            {{ form.email.errors.as_text }}
+                                        </div>
+                                    {% elif form.non_field_errors %}
+                                        <div class="alert alert-danger server_errors" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            {{ form.non_field_errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="glyphicon glyphicon-briefcase"></i>
+                                        </span>
+                                        {{ form.password }}
+                                    </div>
+                                    <div class="help-block with-errors"></div>
+                                    <div class="server_errors">
+                                        {% if form.password.errors %}
+                                        <div class="alert alert-danger server_errors" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            {{ form.password.errors.as_text }}
+                                        </div>
+                                        {% elif error_message %}
+                                        <div class="alert alert-danger server_errors" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            {{ error_message }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <a class="cross" href="/identify/">Forget Password</a>
+                                <input class="btn btn-primary" type="submit" value="Log in"/><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

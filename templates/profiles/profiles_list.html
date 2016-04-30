@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load sorting_tags %}
+{% load pagination_tags %}
+
+{% block page_title %}
+Consultants
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Search</h3>
+            <form method="GET">
+                <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table_background table_margin">
+                <thead class="sidebar_active">
+                    <tr>
+                        <th>{% anchor user__first_name 'Full Name' %}</th>
+                        <th>{% anchor user__email 'Email Address' %}</th>
+                        <th>Contact Number</th>
+                        <th>{% anchor skype_id 'Skype ID' %}</th>
+                        <th>{% anchor linkedin_id 'Linkedin ID' %}</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    {% autosort profiles_list %}
+                    {% autopaginate profiles_list 10 %}
+                    {% for profile in profiles_list %}
+                        <tr>
+                            <td>
+                                <a href="#" title="Profile">{{ profile.user.get_full_name }}</a>
+                            </td>
+                            <td>
+                                {% if profile.user.email %}
+                                    {{ profile.user.email }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if profile.contact_no %}
+                                    {{ profile.contact_no }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if profile.dob %}
+                                    {{ profile.dob|date:"M d, Y" }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if profile.skype_id %}
+                                    {{ profile.skype_id }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if profile.linkedin_id %}
+                                    {{ profile.linkedin_id }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="id_pagination" style="text-align: center">
+        {% paginate %}
+    </div>
+{% endblock %}

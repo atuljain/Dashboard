@@ -1,0 +1,48 @@
+@charset "utf-8";
+
+.sidebar_active{
+    background-color: #000 !important;
+    color: white !important;
+}
+
+.sidebar_click{
+    background-color: #F1F1F1 !important;
+}
+
+.login_form{
+    padding: 3%;
+    margin-top: 50px;
+}
+
+.login_image{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+th a{
+    color: white !important;
+}
+
+.cross{
+   float: right;
+ }
+
+ #id_pagination .pagination a:nth-of-type(1), #id_pagination .pagination a:nth-of-type(2), #id_pagination .pagination span:nth-of-type(1), #id_pagination .pagination span:nth-of-type(2) {
+     border-right: 0px !important;;
+ }
+ #id_pagination .pagination a, .pagination span{
+     float: left !important;;
+ }
+ #id_pagination .btn-primary{
+     background-color: transparent !important;
+ }
+ #id_pagination .btn{
+     color: #357EBD;
+     border-color: #ddd;
+     border-radius: 0px !important;
+ }
+ #id_pagination .disabled{
+     background-color: #337ab7 !important;
+     color: #FFF;
+     opacity: 1;
+ }

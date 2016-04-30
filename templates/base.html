@@ -1,0 +1,118 @@
+<html lang="en">
+{% load staticfiles %}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
+    <title>64bitconsultants</title>
+
+    <link rel="icon" href={% static "img/favicon.png" %} type="image/png">
+    <link rel="shortcut icon" href={% static "img/favicon.ico" %} type="/static/img/x-icon">
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,800italic,700italic,600italic,400italic,300italic,800,700,600' rel='stylesheet' type='text/css'>
+
+    <link href={% static "css/bootstrap.css" %} rel="stylesheet" type="text/css">
+    <link href={% static "css/style1.css" %} rel="stylesheet" type="text/css">
+    <link href={% static "css/font-awesome.css" %} rel="stylesheet" type="text/css">
+    <link href={% static "css/responsive.css" %} rel="stylesheet" type="text/css">
+    <link href={% static "css/animate.css" %} rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src={% static "js/jquery.1.8.3.min.js" %}></script>
+    <script type="text/javascript" src={% static "js/bootstrap.js" %}></script>
+    <script type="text/javascript" src={% static "js/jquery-scrolltofixed.js" %}></script>
+    <script type="text/javascript" src={% static "js/jquery.easing.1.3.js" %}></script>
+    <script type="text/javascript" src={% static "js/jquery.isotope.js" %}></script>
+    <script type="text/javascript" src={% static "js/wow.js" %}></script>
+    <script type="text/javascript" src={% static "js/classie.js" %}></script>
+    <script type="text/javascript" src={% static "js/script.js" %}></script>
+
+    {% block extra_css %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+
+</head>
+
+<body style="overflow-x: hidden;">
+    <!-- {% if request.user.is_authenticated %}
+        <div class="page-header">
+            <a href='/consultants/' class="btn btn-primary" data-toggle="modal">Consultants</a>
+            <a href='/consultants-work-history/' class="btn btn-primary" data-toggle="modal">Consultants Work History</a>
+            <a href='/efforts/' class="btn btn-primary" data-toggle="modal">Update work hours</a>
+            <a href="/profile/" class="btn btn-primary" data-toggle="modal">Profile</a>
+            <a href="/money-flow/" class="btn btn-primary" data-toggle="modal">Money Flow</a>
+            <a href="/logout/" class="btn btn-primary" data-toggle="modal">Logout</a>
+        </div>
+    {% endif %} -->
+    {% if current %}
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" data-target="#sidebar" data-toggle="collapse" role="button">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                    </a>
+                    <a class="navbar-brand" href="{% url 'home' %}">64 Bit Consultants</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if request.user.is_authenticated %}
+                            <li>
+                                <a href="#" title="Edit Profile">
+                                    {{ user.get_full_name }}
+                                </a>
+                            </li>
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="{% url 'logout_user' %}"><i class="glyphicon glyphicon-off"></i>Logout</a></li>
+                        {% else %}
+                            <li><a href="#"><i class="glyphicon glyphicon-off"></i>Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav><br><br><br>
+        {% if request.user.is_authenticated %}
+            <div class="container-fluid for_footer">
+                <div class="row navbar navbar-collapse sidebar_pad">
+                    <div class="col-sm-3 col-md-2 sidebar_pad collapse in" id="sidebar">
+                        <br>
+                        <div class="list-group">
+                            <span href="#" class="list-group-item sidebar_active">
+                                Side Bar
+                                <span class="pull-right" id="slide-submenu">
+                                    <i class="glyphicon glyphicon-chevron-down" data-target="#employee_list" data-toggle="collapse"></i>
+                                </span>
+                            </span>
+                            <div class="collapse in" id="employee_list">
+                                <a href="{% url 'profiles_list' %}" class="list-group-item {% if current == 'profiles_list' %}sidebar_click{% endif %}">Consultants</a>
+                                <a href="#" class="list-group-item">Consultants Work History</a>
+                                <a href="#" class="list-group-item">Update work hours</a>
+                                <a href="#" class="list-group-item">Money Flow</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id= "for_todo" class="col-sm-9 col-md-10 main">
+                        <br>
+                        <div class="list-group">
+                            <span href="#" class="list-group-item sidebar_active">
+                                {% block page_title %}
+                                {% endblock %}
+                            </span>
+                            <div class="list-group-item">
+                                {% block content %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {% block login_content %}
+            {% endblock %}
+        {% endif %}
+    {% endif %}
+
+</body>
+
+</html>

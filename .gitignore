@@ -1,0 +1,4 @@
+*.pyc
+db.db
+media/
+local_settings.py
